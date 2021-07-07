@@ -1,10 +1,10 @@
 import { Navbar, Container } from "react-bootstrap";
 
-const Header = () => {
+const Header = ({ account }) => {
 	return (
-		<Navbar expand="lg" variant="dark" bg="dark">
-			<Container>
-				<Navbar.Brand href="#">Navbar</Navbar.Brand>
+    <Navbar expand="lg" variant="dark" bg="dark">
+      <Container>
+				<Navbar.Brand href="#">Navbar { account }</Navbar.Brand>
 			</Container>
 		</Navbar>
 	);

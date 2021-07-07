@@ -1,0 +1,15 @@
+.video-card {
+	width: 50%;
+  height: 60vh;
+}
+
+.chat-box {
+	width: 30%;
+  height: 94vh;
+  background-color: black !important;
+}
+
+.twitch-section {
+	display: flex;
+	justify-content: flex-end;
+}

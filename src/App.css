@@ -2,3 +2,8 @@
 .App {
   text-align: center;
 }
+
+.body {
+  display: flex;
+  background-color: black;
+}

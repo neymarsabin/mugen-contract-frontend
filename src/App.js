@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 import BetList from "./Body/BetList/BetList";
 import TwitchLiveChat from "./Body/Twitch/TwitchLiveChat";
@@ -20,6 +20,7 @@ function App() {
 				"Non-Ethereum browser detected, You Should consider trying Metamask!!"
 			);
 		}
+    loadAccount();
 	};
 
 	const loadAccount = async () => {
@@ -28,14 +29,12 @@ function App() {
 		setAccount(accounts[0]);
 	};
 
-	useEffect(() => {
-		loadWeb3();
-		loadAccount();
-	}, []);
-
 	return (
 		<div className="App">
-			<Header account={account} />
+			<Header
+        account={account}
+        connectBlockChain={loadWeb3}
+      />
 			<div className="body">
 				<BetList />
 				<TwitchVideo />

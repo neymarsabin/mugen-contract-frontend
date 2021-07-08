@@ -1,4 +1,17 @@
 .betlist-box{
   width: 30%;
   color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.bet-option-red {
+  color: #d14836;
+  align-self: start;
+}
+
+.bet-option-blue {
+  color: #349eff;
 }

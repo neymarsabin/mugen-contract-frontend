@@ -9,7 +9,7 @@ const TwitchVideo = () => {
 					title={"twitch-video-embed"}
 					height="100%"
 					width="100%"
-					allowfullscreen="true"
+					allowFullscreen="true"
 				></iframe>
 			</div>
 		</>

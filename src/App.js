@@ -28,12 +28,10 @@ function App() {
 		const web3 = window.web3;
 		const accounts = await web3.eth.getAccounts();
 		setAccount(accounts[0]);
-
     const abi = [];
     const networkId = await web3.eth.net.getId();
     const networkData = MugenBet.networks[networkId];
     if(networkData) {
-      const abi = MugenBet.abi;
       const address = networkData.address;
       const myContract = new web3.eth.Contract(abi, address);
       console.log("all events in the blockchain: ", myContract.events);

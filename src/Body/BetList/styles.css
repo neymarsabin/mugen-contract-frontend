@@ -1,40 +1,4 @@
-.red-col {
-	background-color: #271d22;
-  width: 98%
+.betlist-box{
+  width: 30%;
+  color: white;
 }
-
-.blue-col {
-	background-color: #22283d;
-  width: 98%
-}
-
-.bet-option-red {
-	color: #cc4634;
-	font-size: 0.6rem;
-	line-height: 1.5rem;
-}
-
-.bet-option-blue {
-	color: #349eff;
-	font-size: 0.6rem;
-	line-height: 1.5rem;
-}
-
-.fighter-header {
-  font-size: 0.75rem;
-	display: flex;
-	justify-content: space-between;
-}
-
-.fighter-1 {
-	color: #cc4634;
-	border-bottom: 1px solid #cc4634;
-	width: 50%;
-}
-
-.fighter-2 {
-	color: #349eff;
-	border-bottom: 1px solid #349eff;
-	width: 50%;
-}
-

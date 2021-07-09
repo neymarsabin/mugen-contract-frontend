@@ -1,8 +1,9 @@
+import BettingForm from '../../Body/BettingForm';
 import "./styles.css";
 
-const TwitchVideo = () => {
+const TwitchVideo = ({ contract }) => {
 	return (
-		<>
+		<div style={{display: 'flex', flexDirection: 'column'}}>
 			<div className="video-card">
 				<iframe
 					src="https://player.twitch.tv/?channel=random_channel&parent=random_domain&muted=true"
@@ -12,7 +13,13 @@ const TwitchVideo = () => {
 					allowFullscreen="true"
 				></iframe>
 			</div>
-		</>
+      {
+        contract &&
+        <BettingForm
+          contract={contract}
+        />
+      }
+		</div>
 	);
 };
 export default TwitchVideo;

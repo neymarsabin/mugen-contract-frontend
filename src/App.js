@@ -9,6 +9,7 @@ import MugenBet from './contract/MugenBet.json';
 
 function App() {
 	const [account, setAccount] = useState("");
+  const [contract, setContract] = useState(undefined);
 
 	const loadWeb3 = () => {
 		if (window.ethereum) {
@@ -28,21 +29,13 @@ function App() {
 		const web3 = window.web3;
 		const accounts = await web3.eth.getAccounts();
 		setAccount(accounts[0]);
-    const abi = [];
     const networkId = await web3.eth.net.getId();
     const networkData = MugenBet.networks[networkId];
     if(networkData) {
+      const abi = MugenBet.abi;
       const address = networkData.address;
       const myContract = new web3.eth.Contract(abi, address);
-      console.log("all events in the blockchain: ", myContract.events);
-      // subscribing to NewGame event in blockchain::::
-      myContract.events.NewGame({}, (error, data) => {
-        if(error) {
-          console.log("This is an error: ");
-        } else {
-          console.log("Log Data: ", + data);
-        }
-      });
+      setContract(myContract);
     } else {
       window.alert("Smart Contract not deployed to detected network");
     }
@@ -56,7 +49,9 @@ function App() {
       />
 			<div className="body">
 				<BetList />
-				<TwitchVideo />
+        <TwitchVideo
+          contract={contract}
+        />
 				<TwitchLiveChat />
 			</div>
 		</div>

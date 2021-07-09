@@ -51,12 +51,12 @@ const BetList = () => {
 			<Row className="fighter-header">
 				<Col className="fighter-1">
 					<div style={{ display: "flex", justifyContent: "flex-start" }}>
-						<strong>Fighter 1</strong>
+						<strong>Option A</strong>
 					</div>
 				</Col>
 				<Col className="fighter-2">
 					<div style={{ display: "flex", justifyContent: "flex-end" }}>
-						<strong>Fighter 2</strong>
+						<strong>Option B</strong>
 					</div>
 				</Col>
 			</Row>

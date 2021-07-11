@@ -1,4 +1,6 @@
 import BettingForm from '../../Body/BettingForm';
+import BetsOpenCloseNotification from '../../Body/BetsOpenCloseNotification';
+import BettingAmountOptions from '../../Body/BettingAmountOptions';
 import "./styles.css";
 
 const TwitchVideo = ({ contract }) => {
@@ -13,12 +15,14 @@ const TwitchVideo = ({ contract }) => {
 					allowFullscreen="true"
 				></iframe>
 			</div>
+      <BetsOpenCloseNotification />
       {
         contract &&
         <BettingForm
           contract={contract}
         />
       }
+      <BettingAmountOptions />
 		</div>
 	);
 };

@@ -43,11 +43,171 @@ const sampleData = [
 		redLabel: "Option 2",
 		cash: "$2.5k",
 	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		                    cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	},
+  {
+		blueLabel: "Option 1",
+		redLabel: "Option 2",
+		cash: "$2.5k",
+	}
 ];
 
 const BetList = () => {
 	return (
-		<Container style={{ width: "30%" }}>
+		<>
 			<Row className="fighter-header">
 				<Col className="fighter-1">
 					<div style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -69,7 +229,7 @@ const BetList = () => {
 					/>
 				);
 			})}
-		</Container>
+		</>
 	);
 };
 

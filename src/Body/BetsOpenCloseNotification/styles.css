@@ -1,0 +1,13 @@
+.bets-open {
+  background-color: #5def89;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.bets-closed {
+  background-color: red;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 5px;
+}

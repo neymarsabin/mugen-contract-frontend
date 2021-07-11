@@ -4,7 +4,7 @@ const TwitchLiveChat = () => {
 			<iframe
 				src="https://www.twitch.tv/embed/random_channel/chat?parent=randomdomain.com"
 				title={"twitch-chat-embed"}
-				height="100%"
+				height="80%"
         width="98%"
 			></iframe>
 		</div>

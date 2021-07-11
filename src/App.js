@@ -6,6 +6,7 @@ import TwitchVideo from "./Body/Twitch/TwitchVideo";
 import Header from "./Header/index.jsx";
 import Web3 from "web3";
 import MugenBet from './contract/MugenBet.json';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function App() {
 	const [account, setAccount] = useState("");
@@ -42,19 +43,25 @@ function App() {
 	};
 
 	return (
-		<div className="App">
+		<>
 			<Header
         account={account}
         connectBlockChain={loadWeb3}
       />
-			<div className="body">
-				<BetList />
-        <TwitchVideo
-          contract={contract}
-        />
-				<TwitchLiveChat />
-			</div>
-		</div>
+      <Container fluid>
+        <Row noGutters>
+          <Col xs={3}>
+				    <BetList />
+          </Col>
+          <Col xs={6}>
+            <TwitchVideo contract={contract} />
+          </Col>
+          <Col xs={3}>
+				    <TwitchLiveChat />
+          </Col>
+        </Row>
+      </Container>
+		</>
 	);
 }
 

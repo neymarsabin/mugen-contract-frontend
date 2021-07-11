@@ -8,7 +8,7 @@ function BettingForm({ contract }) {
 
   return(
     <div className="betting-form-wrapper">
-      <div>
+      <div className="betting-form-width">
         <Form>
           <Form.Group>
             <Form.Label>Enter Bet Amount</Form.Label>
@@ -17,10 +17,10 @@ function BettingForm({ contract }) {
         </Form>
       </div>
       <div className="betting-form-button-group">
-        <Button variant="primary" size="md" onClick={() => handleButtonClick(0)}>
+        <Button variant="danger" size="md" onClick={() => handleButtonClick(0)}>
           Option A
         </Button>
-        <Button variant="danger" size="md" onClick={() => handleButtonClick(1)}>
+        <Button variant="primary" size="md" onClick={() => handleButtonClick(1)}>
           Option B
         </Button>
       </div>

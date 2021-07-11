@@ -1,5 +1,5 @@
 import "./styles.css";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 const BetListRow = ({ blueLabel, redLabel, cash }) => {
 	return (

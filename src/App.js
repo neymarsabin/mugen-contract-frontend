@@ -14,6 +14,7 @@ function App() {
   const [gameStatus, setGameStatus] = useState(false);
   const [balance, setBalance] = useState(0);
   const [bookHash, setBookHash] = useState("");
+  const [newBets, setNewBets] = useState([]);
 
 	const loadWeb3 = () => {
 		if (window.ethereum) {
@@ -42,7 +43,6 @@ function App() {
       setContract(myContract);
       myContract.events.NewGame({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
         if(!error) {
-          console.log("Result from the blockchain", result);
           setGameStatus(true);
         } else {
           console.log("Error: Something went wrong in the blockchain: ", error);
@@ -50,8 +50,12 @@ function App() {
       });
       myContract.events.NewBook({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
         if(!error) {
-          console.log("Result from the blockchain", result);
+          console.log("latest book hash is: ", result.returnValues[1]);
           setBookHash(result.returnValues[1]);
+          myContract.methods.books(result.returnValues[1]).call().then((error, result) => {
+            console.log("Error from block hash query: ", error);
+            console.log("Result from block hash query: ", result);
+          });
           setGameStatus(true);
         } else {
           console.log("Error: Something went wrong in the blockchain: ", error);
@@ -62,6 +66,27 @@ function App() {
           setBalance(web3.utils.fromWei(result, 'ether'));
         } else {
           console.log("Error: ", error);
+        }
+      });
+      myContract.events.GameOver({}, { fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
+        if(!error) {
+          setGameStatus(false);
+          setBookHash("");
+        } else {
+          console.log("Error cannot recieve game over event: ", error);
+        }
+      });
+      myContract.events.NewBet({}, { fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
+        if(!error) {
+          myContract.methods.betTicketFromNFT(result.returnValues[0]).call().then((result2, error2) => {
+            if(!error) {
+              setNewBets([...newBets, result2]);
+            } else {
+              console.log("Error while getting betting data from NFT", error2);
+            }
+          });
+        } else {
+          console.log("Cannot receive new bet event from blockchain:", error);
         }
       });
     } else {
@@ -78,7 +103,9 @@ function App() {
       <Container fluid>
         <Row noGutters>
           <Col xs={3}>
-				    <BetList />
+				    <BetList
+              newBets={newBets}
+            />
           </Col>
           <Col xs={6}>
             <TwitchVideo

@@ -1,211 +1,28 @@
 import "./styles.css";
 import { Row, Col } from "react-bootstrap";
 
-const BetListRow = ({ blueLabel, redLabel, cash }) => {
+const BetListRow = ({ address, option, amount }) => {
 	return (
-		<Row>
-			<Col className="red-col">
+    <>
+      { option === "0" &&
 				<div style={{ display: "flex", justifyContent: "flex-start" }}>
 					<strong className="bet-option-red">
-						{cash}|{redLabel}
+						{address.substring(1, 8)}|{parseInt(amount)/10**18}
 					</strong>
 				</div>
-			</Col>
-			<Col className="blue-col">
-				<div style={{ display: "flex", justifyContent: "flex-end" }}>
+      }
+      { option === "1" &&
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
 					<strong className="bet-option-blue">
-						{blueLabel}|{cash}
+            {address.substring(1, 9)}|{parseInt(amount)/10**18}
 					</strong>
 				</div>
-			</Col>
-		</Row>
+      }
+    </>
 	);
 };
 
-const sampleData = [
-	{
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-	{
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-	{
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-	{
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		                    cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	},
-  {
-		blueLabel: "Option 1",
-		redLabel: "Option 2",
-		cash: "$2.5k",
-	}
-];
-
-const BetList = () => {
+const BetList = ({ newBets }) => {
 	return (
 		<>
 			<Row className="fighter-header">
@@ -220,15 +37,30 @@ const BetList = () => {
 					</div>
 				</Col>
 			</Row>
-			{sampleData.map((sData) => {
-				return (
-					<BetListRow
-						blueLabel={sData.blueLabel}
-						redLabel={sData.redLabel}
-						cash={sData.cash}
-					/>
-				);
-			})}
+      <Row>
+        <Col className="red-col">
+          {newBets.filter((s) => s.option === "0").map((sData) => {
+				    return (
+					    <BetListRow
+						    address={sData[0]}
+                option={sData.option}
+                amount={sData.payout}
+					    />
+				    );
+			    })}
+        </Col>
+        <Col className="blue-col">
+          {newBets.filter((s) => s.option === "1").map((sData) => {
+				    return (
+					    <BetListRow
+						    address={sData[0]}
+                option={sData.option}
+                amount={sData.payout}
+					    />
+				    );
+			    })}
+        </Col>
+      </Row>
 		</>
 	);
 };

@@ -1,39 +1,69 @@
 import { Row, Col, Button } from 'react-bootstrap';
 
-const BettingAmountOptions = ({ contract }) => {
+const BettingAmountOptions = ({ setBetAmount, balance, contract }) => {
+
+  const calculateAmount = (value) => {
+    const amount = balance * value;
+    setBetAmount(amount.toFixed(0));
+  };
+
   if(contract) {
     return(
       <div style={{padding: '20px', backgroundColor: 'black'}}>
         <Row>
           <Col>
-            <Button variant="primary" size="sm"> 10% </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => calculateAmount(0.1)}
+            >
+              10%
+            </Button>
           </Col>
           <Col>
-            <Button variant="primary" size="sm"> 20% </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => calculateAmount(0.2)}
+            >
+              20%
+            </Button>
           </Col>
           <Col>
-            <Button variant="primary" size="sm"> 30% </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => calculateAmount(0.3)}
+            >
+              30%
+            </Button>
           </Col>
           <Col>
-            <Button variant="primary" size="sm"> 40% </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => calculateAmount(0.4)}
+            >
+              40%
+            </Button>
           </Col>
           <Col>
-            <Button variant="primary" size="sm"> 50% </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => calculateAmount(0.5)}
+            >
+              50%
+            </Button>
           </Col>
           <Col>
-            <Button variant="primary" size="sm"> 60% </Button>
-          </Col>
-          <Col>
-            <Button variant="primary" size="sm"> 70% </Button>
-          </Col>
-          <Col>
-            <Button variant="primary" size="sm"> 80% </Button>
-          </Col>
-          <Col>
-            <Button variant="primary" size="sm"> 90% </Button>
-          </Col>
-          <Col>
-            <Button variant="primary" size="sm"> All In </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => calculateAmount(1)}
+            >
+              All In
+            </Button>
           </Col>
         </Row>
       </div>

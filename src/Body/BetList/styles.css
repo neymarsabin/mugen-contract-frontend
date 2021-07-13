@@ -1,11 +1,9 @@
 .red-col {
 	background-color: #271d22;
-  width: 98%
 }
 
 .blue-col {
 	background-color: #22283d;
-  width: 98%
 }
 
 .bet-option-red {
@@ -28,6 +26,7 @@
 
 .fighter-1 {
 	color: #cc4634;
+  background-color: black;
 	border-bottom: 1px solid #cc4634;
 	width: 50%;
 }
@@ -35,6 +34,7 @@
 .fighter-2 {
 	color: #349eff;
 	border-bottom: 1px solid #349eff;
+  background-color: black;
 	width: 50%;
 }
 

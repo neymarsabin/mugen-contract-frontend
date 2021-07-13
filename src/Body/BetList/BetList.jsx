@@ -1,3 +1,4 @@
+import { useEffect, useState, useCallback } from 'react';
 import "./styles.css";
 import { Row, Col } from "react-bootstrap";
 
@@ -22,7 +23,29 @@ const BetListRow = ({ address, option, amount }) => {
 	);
 };
 
-const BetList = ({ newBets }) => {
+const BetList = ({ contract }) => {
+  const [newBets, setNewBets] = useState([]);
+
+  const subscribeToNewBet = () => {
+    contract.events.NewBet({}, { fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
+      if(!error) {
+        contract.methods.betTicketFromNFT(result.returnValues[0]).call().then((result2, error2) => {
+          if(!error) {
+            setNewBets([...newBets, result2]);
+          } else {
+            console.log("Error while getting betting data from NFT", error2);
+          }
+        });
+      } else {
+        console.log("Cannot receive new bet event from blockchain:", error);
+      }
+    });
+  };
+
+  useEffect(() => {
+    subscribeToNewBet();
+  }, []);
+
 	return (
 		<>
 			<Row className="fighter-header">

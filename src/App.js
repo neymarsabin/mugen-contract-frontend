@@ -14,7 +14,6 @@ function App() {
   const [gameStatus, setGameStatus] = useState(false);
   const [balance, setBalance] = useState(0);
   const [bookHash, setBookHash] = useState("");
-  const [newBets, setNewBets] = useState([]);
 
 	const loadWeb3 = () => {
 		if (window.ethereum) {
@@ -41,6 +40,7 @@ function App() {
       const address = networkData.address;
       const myContract = new web3.eth.Contract(abi, address);
       setContract(myContract);
+
       myContract.events.NewGame({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
         if(!error) {
           setGameStatus(true);
@@ -48,6 +48,7 @@ function App() {
           console.log("Error: Something went wrong in the blockchain: ", error);
         }
       });
+
       myContract.events.NewBook({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
         if(!error) {
           console.log("latest book hash is: ", result.returnValues[1]);
@@ -61,6 +62,7 @@ function App() {
           console.log("Error: Something went wrong in the blockchain: ", error);
         }
       });
+
       web3.eth.getBalance(accounts[0], (error, result) => {
         if(!error) {
           setBalance(web3.utils.fromWei(result, 'ether'));
@@ -68,25 +70,13 @@ function App() {
           console.log("Error: ", error);
         }
       });
+
       myContract.events.GameOver({}, { fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
         if(!error) {
           setGameStatus(false);
           setBookHash("");
         } else {
           console.log("Error cannot recieve game over event: ", error);
-        }
-      });
-      myContract.events.NewBet({}, { fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
-        if(!error) {
-          myContract.methods.betTicketFromNFT(result.returnValues[0]).call().then((result2, error2) => {
-            if(!error) {
-              setNewBets([...newBets, result2]);
-            } else {
-              console.log("Error while getting betting data from NFT", error2);
-            }
-          });
-        } else {
-          console.log("Cannot receive new bet event from blockchain:", error);
         }
       });
     } else {
@@ -103,9 +93,11 @@ function App() {
       <Container fluid>
         <Row noGutters>
           <Col xs={3}>
-				    <BetList
-              newBets={newBets}
-            />
+            { contract &&
+				      <BetList
+                contract={contract}
+              />
+            }
           </Col>
           <Col xs={6}>
             <TwitchVideo

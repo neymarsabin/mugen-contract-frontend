@@ -5,7 +5,7 @@ const BetsOpenCloseNotification = ({ betStatus }) => {
 
   return(
     <>
-      <div className={false ? 'bets-open' : 'bets-closed'}>
+      <div className={betStatus ? 'bets-open' : 'bets-closed'}>
         {notifyText}
       </div>
     </>

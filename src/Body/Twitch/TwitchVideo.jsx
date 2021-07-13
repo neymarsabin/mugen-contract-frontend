@@ -3,7 +3,7 @@ import BetsOpenCloseNotification from '../../Body/BetsOpenCloseNotification';
 import BettingAmountOptions from '../../Body/BettingAmountOptions';
 import "./styles.css";
 
-const TwitchVideo = ({ contract }) => {
+const TwitchVideo = ({ contract, gameStatus, balance }) => {
 	return (
 		<div style={{display: 'flex', flexDirection: 'column'}}>
 			<div className="video-card">
@@ -15,14 +15,19 @@ const TwitchVideo = ({ contract }) => {
 					allowFullscreen="true"
 				></iframe>
 			</div>
-      <BetsOpenCloseNotification />
+      <BetsOpenCloseNotification
+        betStatus={gameStatus}
+      />
       {
         contract &&
         <BettingForm
           contract={contract}
+          balance={balance}
         />
       }
-      <BettingAmountOptions />
+      <BettingAmountOptions
+        contract={contract}
+      />
 		</div>
 	);
 };

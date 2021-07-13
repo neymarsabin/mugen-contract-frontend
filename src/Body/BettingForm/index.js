@@ -1,7 +1,7 @@
 import { Button, Form } from 'react-bootstrap';
 import "./styles.css";
 
-function BettingForm({ contract }) {
+function BettingForm({ contract, balance }) {
   const handleButtonClick = (option) => {
     contract.methods.placeBet('bookHash', option);
   };
@@ -11,8 +11,11 @@ function BettingForm({ contract }) {
       <div className="betting-form-width">
         <Form>
           <Form.Group>
-            <Form.Label>Enter Bet Amount</Form.Label>
-            <Form.Control type="number" placeholder="0.0" />
+            <Form.Label>Enter Bet Amount: Your Balance: {balance} {balance && 'ETH'}</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="0.0"
+            />
           </Form.Group>
         </Form>
       </div>

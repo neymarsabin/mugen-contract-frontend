@@ -11,6 +11,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 function App() {
 	const [account, setAccount] = useState("");
   const [contract, setContract] = useState(undefined);
+  const [gameStatus, setGameStatus] = useState(false);
+  const [balance, setBalance] = useState(0);
 
 	const loadWeb3 = () => {
 		if (window.ethereum) {
@@ -37,6 +39,29 @@ function App() {
       const address = networkData.address;
       const myContract = new web3.eth.Contract(abi, address);
       setContract(myContract);
+      myContract.events.NewGame({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
+        if(!error) {
+          console.log("Result from the blockchain", result);
+          setGameStatus(true);
+        } else {
+          console.log("Error: Something went wrong in the blockchain: ", error);
+        }
+      });
+      myContract.events.NewBook({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
+        if(!error) {
+          console.log("Result from the blockchain", result);
+          setGameStatus(true);
+        } else {
+          console.log("Error: Something went wrong in the blockchain: ", error);
+        }
+      });
+      web3.eth.getBalance(accounts[0], (error, result) => {
+        if(!error) {
+          setBalance(web3.utils.fromWei(result, 'ether'));
+        } else {
+          console.log("Error: ", error);
+        }
+      });
     } else {
       window.alert("Smart Contract not deployed to detected network");
     }
@@ -45,6 +70,7 @@ function App() {
 	return (
 		<>
 			<Header
+
         account={account}
         connectBlockChain={loadWeb3}
       />
@@ -54,7 +80,11 @@ function App() {
 				    <BetList />
           </Col>
           <Col xs={6}>
-            <TwitchVideo contract={contract} />
+            <TwitchVideo
+              contract={contract}
+              gameStatus={gameStatus}
+              balance={balance}
+            />
           </Col>
           <Col xs={3}>
 				    <TwitchLiveChat />

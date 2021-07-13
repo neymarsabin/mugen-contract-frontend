@@ -1,7 +1,7 @@
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { Button } from 'react-bootstrap';
 
-const Header = ({ account, connectBlockChain }) => {
+const Header = ({ account, connectBlockChain, balance }) => {
 	return (
 		<Navbar expand="lg" variant="dark" bg="dark">
 			<Container>

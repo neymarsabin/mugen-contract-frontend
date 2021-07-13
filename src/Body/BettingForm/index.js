@@ -1,9 +1,10 @@
 import { Button, Form } from 'react-bootstrap';
 import "./styles.css";
 
-function BettingForm({ contract, balance }) {
-  const handleButtonClick = (option) => {
-    contract.methods.placeBet('bookHash', option);
+function BettingForm({ contract, balance, bookHash, account }) {
+  const handleButtonClick = async (option) => {
+    const response = await contract.methods.placeBet(bookHash, option).send({ from: account });
+    console.log("Response after placing bet: ", response);
   };
 
   return(

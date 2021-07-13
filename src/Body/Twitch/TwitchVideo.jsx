@@ -3,7 +3,13 @@ import BetsOpenCloseNotification from '../../Body/BetsOpenCloseNotification';
 import BettingAmountOptions from '../../Body/BettingAmountOptions';
 import "./styles.css";
 
-const TwitchVideo = ({ contract, gameStatus, balance }) => {
+const TwitchVideo = ({
+  contract,
+  gameStatus,
+  balance,
+  bookHash,
+  account
+}) => {
 	return (
 		<div style={{display: 'flex', flexDirection: 'column'}}>
 			<div className="video-card">
@@ -23,6 +29,8 @@ const TwitchVideo = ({ contract, gameStatus, balance }) => {
         <BettingForm
           contract={contract}
           balance={balance}
+          bookHash={bookHash}
+          account={account}
         />
       }
       <BettingAmountOptions

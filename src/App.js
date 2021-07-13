@@ -13,6 +13,7 @@ function App() {
   const [contract, setContract] = useState(undefined);
   const [gameStatus, setGameStatus] = useState(false);
   const [balance, setBalance] = useState(0);
+  const [bookHash, setBookHash] = useState("");
 
 	const loadWeb3 = () => {
 		if (window.ethereum) {
@@ -50,6 +51,7 @@ function App() {
       myContract.events.NewBook({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
         if(!error) {
           console.log("Result from the blockchain", result);
+          setBookHash(result.returnValues[1]);
           setGameStatus(true);
         } else {
           console.log("Error: Something went wrong in the blockchain: ", error);
@@ -70,7 +72,6 @@ function App() {
 	return (
 		<>
 			<Header
-
         account={account}
         connectBlockChain={loadWeb3}
       />
@@ -84,6 +85,8 @@ function App() {
               contract={contract}
               gameStatus={gameStatus}
               balance={balance}
+              bookHash={bookHash}
+              account={account}
             />
           </Col>
           <Col xs={3}>

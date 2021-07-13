@@ -30,7 +30,7 @@ const BetList = ({ contract }) => {
     contract.events.NewBet({}, { fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
       if(!error) {
         contract.methods.betTicketFromNFT(result.returnValues[0]).call().then((result2, error2) => {
-          if(!error) {
+          if(!error2) {
             setNewBets([...newBets, result2]);
           } else {
             console.log("Error while getting betting data from NFT", error2);

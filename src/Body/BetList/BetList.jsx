@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import "./styles.css";
 import { Row, Col } from "react-bootstrap";
+import web3 from 'web3';
 
 const BetListRow = ({ address, option, amount }) => {
 	return (
@@ -8,14 +9,14 @@ const BetListRow = ({ address, option, amount }) => {
       { option === "0" &&
 				<div style={{ display: "flex", justifyContent: "flex-start" }}>
 					<strong className="bet-option-red">
-						{address.substring(1, 8)}|{parseInt(amount)/10**18}
+						{address.substring(1, 8)}|{web3.utils.fromWei(amount, 'Ether') } {' '}ETH
 					</strong>
 				</div>
       }
       { option === "1" &&
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
 					<strong className="bet-option-blue">
-            {address.substring(1, 9)}|{parseInt(amount)/10**18}
+            {address.substring(1, 9)}|{web3.utils.fromWei(amount, 'Ether')} {' '}ETH
 					</strong>
 				</div>
       }

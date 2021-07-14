@@ -21,3 +21,10 @@
 .betting-form-width {
   text-align: center;
 }
+
+.betting-confirm-dialog-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 20px;
+}

@@ -44,8 +44,8 @@ const BetList = ({ contract }) => {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line
     subscribeToNewBet();
+    //eslint-disable-next-line
   }, []);
 
 	return (

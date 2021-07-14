@@ -7,6 +7,7 @@ import Header from "./Header/index.jsx";
 import Web3 from "web3";
 import MugenBet from './contract/MugenBet.json';
 import { Container, Row, Col } from 'react-bootstrap';
+import CollectBetForm from './Body/CollectBetForm';
 
 function App() {
 	const [account, setAccount] = useState("");
@@ -14,6 +15,8 @@ function App() {
   const [gameStatus, setGameStatus] = useState(false);
   const [balance, setBalance] = useState(0);
   const [bookHash, setBookHash] = useState("");
+  const [showCollectButton, setShowCollectButton] = useState(false);
+  const [collectModal, setCollectModal] = useState(false);
 
 	const loadWeb3 = () => {
 		if (window.ethereum) {
@@ -29,6 +32,53 @@ function App() {
     loadAccount();
 	};
 
+  const subscribeToNewGame = (myContract) => {
+    myContract.events.NewGame({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
+      if(!error) {
+        setGameStatus(true);
+        setCollectModal(false);
+        setShowCollectButton(false);
+      } else {
+        console.log("Error: Something went wrong in the blockchain: ", error);
+      }
+    });
+  };
+
+  const subscribeToNewBook = (myContract) => {
+    myContract.events.NewBook({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
+      if(!error) {
+        console.log("Returned book hash: ", result.returnValues[1]);
+        setBookHash(result.returnValues[1]);
+        setGameStatus(true);
+      } else {
+        console.log("Error: Something went wrong in the blockchain: ", error);
+      }
+    });
+  };
+
+  const getBalance = (account) => {
+    const web3 = window.web3;
+    web3.eth.getBalance(account, (error, result) => {
+      if(!error) {
+        setBalance(web3.utils.fromWei(result, 'ether'));
+      } else {
+        console.log("Error: ", error);
+      }
+    });
+  };
+
+  const subscribeToGameOver = (myContract) => {
+    myContract.events.GameOver({}, { fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
+      if(!error) {
+        setGameStatus(false);
+        setBookHash("");
+        setShowCollectButton(true);
+      } else {
+        console.log("Error cannot recieve game over event: ", error);
+      }
+    });
+  };
+
 	const loadAccount = async () => {
 		const web3 = window.web3;
 		const accounts = await web3.eth.getAccounts();
@@ -40,41 +90,10 @@ function App() {
       const address = networkData.address;
       const myContract = new web3.eth.Contract(abi, address);
       setContract(myContract);
-
-      myContract.events.NewGame({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
-        if(!error) {
-          setGameStatus(true);
-        } else {
-          console.log("Error: Something went wrong in the blockchain: ", error);
-        }
-      });
-
-      myContract.events.NewBook({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
-        if(!error) {
-          console.log("Returned book hash: ", result.returnValues[1]);
-          setBookHash(result.returnValues[1]);
-          setGameStatus(true);
-        } else {
-          console.log("Error: Something went wrong in the blockchain: ", error);
-        }
-      });
-
-      web3.eth.getBalance(accounts[0], (error, result) => {
-        if(!error) {
-          setBalance(web3.utils.fromWei(result, 'ether'));
-        } else {
-          console.log("Error: ", error);
-        }
-      });
-
-      myContract.events.GameOver({}, { fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
-        if(!error) {
-          setGameStatus(false);
-          setBookHash("");
-        } else {
-          console.log("Error cannot recieve game over event: ", error);
-        }
-      });
+      subscribeToNewGame(myContract);
+      subscribeToNewBook(myContract);
+      getBalance(accounts[0]);
+      subscribeToGameOver(myContract);
     } else {
       window.alert("Smart Contract not deployed to detected network");
     }
@@ -82,9 +101,18 @@ function App() {
 
 	return (
 		<>
+      { collectModal &&
+        <CollectBetForm
+          open={collectModal}
+          toggleCollectBetModal={() => setCollectModal(!collectModal)}
+          contract={contract}
+        />
+      }
 			<Header
         account={account}
         connectBlockChain={loadWeb3}
+        showCollectButton={showCollectButton}
+        handleCollectBetClick={() => setCollectModal(true)}
       />
       <Container fluid>
         <Row noGutters>

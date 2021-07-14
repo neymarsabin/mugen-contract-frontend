@@ -7,10 +7,10 @@ const BetTicketModal = ({
 }) => {
   return(
     <Modal show={open}>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>Bet Ticket ID</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Copy your bet ticket id: {betTicket}, you will need this to collect your winnings.</Modal.Body>
+      <Modal.Body>Your bet ticket id is:  <strong>{betTicket}</strong> , you will need this to collect your winnings.</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={toggleModal}>
           Close

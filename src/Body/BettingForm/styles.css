@@ -81,3 +81,8 @@
   padding: 10px;
   border: 0px;
 }
+
+.input-error {
+  color: red;
+  font-size: 12px;
+}

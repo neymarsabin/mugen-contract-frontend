@@ -1,0 +1,15 @@
+.collect-bet-form {
+  background-color: black;
+  color: white;
+  border: 0px;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.notification-text, .error {
+  font-size: 12px;
+}
+
+.error {
+  color: red;
+}

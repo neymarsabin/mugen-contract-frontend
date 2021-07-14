@@ -25,7 +25,7 @@ const TwitchVideo = ({
         betStatus={gameStatus}
       />
       {
-        contract &&
+        gameStatus &&
         <BettingForm
           contract={contract}
           balance={balance}

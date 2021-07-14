@@ -35,8 +35,13 @@ function BettingForm({ contract, balance, bookHash, account }) {
   const [option, setOption] = useState(null);
   const [openBetTicketModal, setOpenBetTicketModal] = useState(false);
   const [betTicket, setBetTicket] = useState("");
+  const [error, setError] = useState("");
 
   const handleOptionButtonClick = (option) => {
+    if(betAmount === "") {
+      setError("Can't be blank");
+      return;
+    }
     setOption(option);
     // Call GetOdds function
     // bet odds for option 1
@@ -82,11 +87,15 @@ function BettingForm({ contract, balance, bookHash, account }) {
             type="number"
             placeholder="Enter Bet Amount"
             value={betAmount}
-            onChange={(e) => setBetAmount(e.target.value)}
+            onChange={(e) => {
+              setError("");
+              setBetAmount(e.target.value);
+            }}
             className="betting-form-input"
           />
           <span className="show-odds"> {betOddsFirst}:{betOddsSecond} </span>
         </form>
+        { error && <span className="input-error"> Error: can't be blank </span>}
       </div>
       <div>
         <div className="betting-form-button-group">

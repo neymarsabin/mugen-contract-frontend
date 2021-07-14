@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
 import BettingAmountOptions from '../BettingAmountOptions';
 import "./styles.css";
 import BetTicketModal from './BetTicketModal';
@@ -8,11 +7,22 @@ import web3 from 'web3';
 const BettingConfirmationDialog = ({
   handleConfirmClick,
   handleCancelClick,
+  option
 }) => {
   return(
     <div className="betting-confirm-dialog-wrapper">
-      <Button onClick={handleConfirmClick}> Place your bet </Button>
-      <Button onClick={handleCancelClick}> Cancel </Button>
+      <button
+        onClick={handleConfirmClick}
+        className="place-bet-button"
+      >
+        Place bet for { option === 0 ? "Option A" : "Option B"}
+      </button>
+      <button
+        onClick={handleCancelClick}
+        className="cancel-button"
+      >
+        Cancel
+      </button>
     </div>
   );
 };
@@ -30,9 +40,9 @@ function BettingForm({ contract, balance, bookHash, account }) {
     setOption(option);
     // Call GetOdds function
     // bet odds for option 1
-    contract.methods.getOdds(bookHash, option, betAmount).call().then((response) => {
+    contract.methods.getOdds(bookHash, option, parseFloat(betAmount)).call().then((response) => {
       setBetOddsFirst(response);
-      contract.methods.getOdds(bookHash, option, betAmount).call().then((response2) => {
+      contract.methods.getOdds(bookHash, option, parseFloat(betAmount)).call().then((response2) => {
         setBetOddsSecond(response2);
         setConfirmDialog(true);
       }).catch((errror) => {
@@ -66,35 +76,22 @@ function BettingForm({ contract, balance, bookHash, account }) {
         betTicket={betTicket}
       />
       <div className="betting-form-width">
-        <Form>
-          <Form.Group>
-            <Form.Label>Balance: {balance} {balance && 'ETH'}</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Enter Bet Amount"
-              value={betAmount}
-              onChange={(e) => setBetAmount(e.target.value)}
-            />
-          </Form.Group>
-        </Form>
+        <form>
+          <span className="balance-span">{balance > 0 ? parseFloat(balance).toFixed(2) : balance } </span>
+          <input
+            type="number"
+            placeholder="Enter Bet Amount"
+            value={betAmount}
+            onChange={(e) => setBetAmount(e.target.value)}
+            className="betting-form-input"
+          />
+          <span className="show-odds"> {betOddsFirst}:{betOddsSecond} </span>
+        </form>
       </div>
       <div>
-        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-          <div>
-            Option A Bet Odds: {betOddsFirst}
-          </div>
-          <div>
-            Option B Bet Odds: {betOddsSecond}
-          </div>
-        </div>
         <div className="betting-form-button-group">
-          <Button variant="danger" size="md" onClick={() => handleOptionButtonClick(0)}>
-            Option A
-          </Button>
-
-          <Button variant="primary" size="md" onClick={() => handleOptionButtonClick(1)}>
-            Option B
-          </Button>
+          <button className="option-a-button" onClick={() => handleOptionButtonClick(0)}> Option A </button>
+          <button className="option-b-button" onClick={() => handleOptionButtonClick(1)}> Option B </button>
         </div>
       </div>
 
@@ -104,6 +101,7 @@ function BettingForm({ contract, balance, bookHash, account }) {
           handleConfirmClick={() => handleConfirmButtonClick()}
           bettingOddsFirst={betOddsFirst}
           bettingOddsSecond={betOddsSecond}
+          option={option}
         />
       }
 

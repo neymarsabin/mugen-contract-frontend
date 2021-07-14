@@ -1,13 +1,16 @@
 .bets-open {
-  background-color: #5def89;
-  font-size: 14px;
-  text-align: center;
-  border-radius: 5px;
+  background-color: rgb(68, 176, 111);
 }
 
 .bets-closed {
-  background-color: red;
-  font-size: 14px;
+  background-color: black;
+  color: white;
+}
+
+.bets-open, .bets-closed {
+  font-size: 12px;
   text-align: center;
   border-radius: 5px;
+  padding: 10px;
 }
+

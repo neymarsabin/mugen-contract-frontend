@@ -1,0 +1,18 @@
+.option-amount-wrapper {
+  display: flex;
+  background-color: black;
+  padding-top: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.option-amount-button {
+  background-color: rgb(100, 65, 165);
+  width: 50px;
+  margin-left: 5px;
+  color: white;
+  font-size: 12px;
+  height: 30px;
+  width: 60px;
+  border: 0px;
+}

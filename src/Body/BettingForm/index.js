@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import BettingAmountOptions from '../BettingAmountOptions';
 import "./styles.css";
+import BetTicketModal from './BetTicketModal';
 
 const BettingConfirmationDialog = ({
   handleConfirmClick,
@@ -22,6 +23,8 @@ function BettingForm({ contract, balance, bookHash, account }) {
   const [betOdds, setBetOdds] = useState(0);
   const [confirmDialog, setConfirmDialog] = useState(false);
   const [option, setOption] = useState(null);
+  const [openBetTicketModal, setOpenBetTicketModal] = useState(false);
+  const [betTicket, setBetTicket] = useState("");
 
   const handleButtonClick = (option) => {
     setOption(option);
@@ -38,9 +41,15 @@ function BettingForm({ contract, balance, bookHash, account }) {
     // Call Place Bet Function
     contract.methods.placeBet(bookHash, option).send({ from: account, value: betOdds }).then((response) => {
       setConfirmDialog(false);
+      setBetTicket(response.events.NewBet.returnValues[0]);
+      setOpenBetTicketModal(true);
     }).catch((error) => {
       console.log("Error: ");
     });
+  };
+
+  const toggleModal = () => {
+    setOpenBetTicketModal(!openBetTicketModal);
   };
 
   if(confirmDialog) {
@@ -56,6 +65,11 @@ function BettingForm({ contract, balance, bookHash, account }) {
   } else {
     return(
       <div className="betting-form-wrapper">
+        <BetTicketModal
+          open={openBetTicketModal}
+          toggleModal={toggleModal}
+          betTicket={betTicket}
+        />
         <div className="betting-form-width">
           <Form>
             <Form.Group>

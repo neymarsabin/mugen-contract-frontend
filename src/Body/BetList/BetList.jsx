@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import "./styles.css";
 import { Row, Col } from "react-bootstrap";
 
@@ -43,6 +43,7 @@ const BetList = ({ contract }) => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line
     subscribeToNewBet();
   }, []);
 

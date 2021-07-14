@@ -51,12 +51,8 @@ function App() {
 
       myContract.events.NewBook({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
         if(!error) {
-          console.log("latest book hash is: ", result.returnValues[1]);
+          console.log("Returned book hash: ", result.returnValues[1]);
           setBookHash(result.returnValues[1]);
-          myContract.methods.books(result.returnValues[1]).call().then((error, result) => {
-            console.log("Error from block hash query: ", error);
-            console.log("Result from block hash query: ", result);
-          });
           setGameStatus(true);
         } else {
           console.log("Error: Something went wrong in the blockchain: ", error);

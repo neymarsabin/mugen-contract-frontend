@@ -1,6 +1,5 @@
 .option-amount-wrapper {
   display: flex;
-  background-color: black;
   padding-top: 20px;
   flex-direction: row;
   justify-content: space-between;

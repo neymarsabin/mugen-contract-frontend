@@ -18,7 +18,7 @@ function App() {
   const [showCollectButton, setShowCollectButton] = useState(false);
   const [collectModal, setCollectModal] = useState(false);
 
-	const loadWeb3 = () => {
+	const loadWeb3 = async () => {
 		if (window.ethereum) {
 			window.web3 = new Web3(window.ethereum);
 			window.ethereum.enable();
@@ -49,6 +49,10 @@ function App() {
       if(!error) {
         console.log("Returned book hash: ", result.returnValues[1]);
         setBookHash(result.returnValues[1]);
+        // myContract.methods.books(result.returnValues[1]).call().then((bookResult, bookError) => {
+        //   console.log("Error printing book result: ", bookResult);
+        //   console.log("Error printing book result: ", bookError);
+        // });
         setGameStatus(true);
       } else {
         console.log("Error: Something went wrong in the blockchain: ", error);

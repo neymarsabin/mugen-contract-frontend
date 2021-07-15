@@ -1,42 +1,25 @@
 import { useEffect, useState } from 'react';
 import "./styles.css";
 import { Row, Col } from "react-bootstrap";
-import web3 from 'web3';
 
-const BetListRow = ({ address, option, amount }) => {
+const BetListRow = ({ ticketId, address, option, amount }) => {
 	return (
-    <>
-      { option === "0" &&
-				<div style={{ display: "flex", justifyContent: "flex-start" }}>
-					<strong className="bet-option-red">
-						{address.substring(1, 8)}|{web3.utils.fromWei(amount, 'Ether') } {' '}ETH
-					</strong>
-				</div>
-      }
-      { option === "1" &&
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-					<strong className="bet-option-blue">
-            {address.substring(1, 9)}|{web3.utils.fromWei(amount, 'Ether')} {' '}ETH
-					</strong>
-				</div>
-      }
-    </>
+		<div style={{ display: "flex", justifyContent: option === "0" ? 'flex-start' : 'flex-end' }}>
+			<strong className={option === "0" ? 'bet-option-red' : 'bet-option-blue'}>
+				{ticketId}|{address.substring(1,8)}|{amount.substring(1,8)} {' '}ETH
+			</strong>
+		</div>
 	);
 };
 
 const BetList = ({ contract }) => {
-  const [newBets, setNewBets] = useState([]);
+  const [newBets, setNewBets] = useState({});
+  const [newBetTickets, setNewBetTickets] = useState([]);
 
   const subscribeToNewBet = () => {
     contract.events.NewBet({}, { fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
       if(!error) {
-        contract.methods.betTicketFromNFT(result.returnValues[0]).call().then((result2, error2) => {
-          if(!error2) {
-            setNewBets([...newBets, result2]);
-          } else {
-            console.log("Error while getting betting data from NFT", error2);
-          }
-        });
+        setNewBetTickets(result.returnValues[3]);
       } else {
         console.log("Cannot receive new bet event from blockchain:", error);
       }
@@ -47,6 +30,18 @@ const BetList = ({ contract }) => {
     subscribeToNewBet();
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    const newBetsCopy = [];
+    if(newBetTickets.length > 0) {
+      newBetTickets.forEach((i) => {
+        contract.methods.betTicketFromNFT(i).call().then((result, error) => {
+          newBetsCopy[i] = result;
+          setNewBets(newBetsCopy);
+        });
+      });
+    }
+  }, [newBetTickets, contract.methods]);
 
 	return (
 		<>
@@ -63,24 +58,26 @@ const BetList = ({ contract }) => {
 				</Col>
 			</Row>
       <Row>
-        <Col className="red-col">
-          {newBets.filter((s) => s.option === "0").map((sData) => {
+        <Col xs={12} sm={6} className="red-col">
+          {Object.keys(newBets).filter((betKey) => newBets[betKey].option === "0").map((betKey) => {
 				    return (
 					    <BetListRow
-						    address={sData[0]}
-                option={sData.option}
-                amount={sData.payout}
+                ticketId={betKey}
+						    address={newBets[betKey][0]}
+                option={newBets[betKey].option}
+                amount={newBets[betKey].payout}
 					    />
 				    );
 			    })}
         </Col>
-        <Col className="blue-col">
-          {newBets.filter((s) => s.option === "1").map((sData) => {
+        <Col xs={12} sm={6} className="blue-col">
+          {Object.keys(newBets).filter((betKey) => newBets[betKey].option === "1").map((betKey) => {
 				    return (
 					    <BetListRow
-						    address={sData[0]}
-                option={sData.option}
-                amount={sData.payout}
+                ticketId={betKey}
+						    address={newBets[betKey][0]}
+                option={newBets[betKey].option}
+                amount={newBets[betKey].payout}
 					    />
 				    );
 			    })}

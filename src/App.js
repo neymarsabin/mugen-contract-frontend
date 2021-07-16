@@ -4,7 +4,7 @@ import BetList from "./Body/BetList/BetList";
 import TwitchLiveChat from "./Body/Twitch/TwitchLiveChat";
 import TwitchVideo from "./Body/Twitch/TwitchVideo";
 import Header from "./Header/index.jsx";
-import Web3 from "web3";
+import web3 from "web3";
 import MugenBet from './contract/MugenBet.json';
 import { Container, Row, Col } from 'react-bootstrap';
 import CollectBetForm from './Body/CollectBetForm';
@@ -19,10 +19,10 @@ function App() {
 
 	const loadWeb3 = async () => {
 		if (window.ethereum) {
-			window.web3 = new Web3(window.ethereum);
+			window.web3 = new web3(window.ethereum);
 			window.ethereum.enable();
 		} else if (window.web3) {
-			window.web3 = new Web3(window.web3.currentProvider);
+			window.web3 = new web3(window.web3.currentProvider);
 		} else {
 			window.alert(
 				"Non-Ethereum browser detected, You Should consider trying Metamask!!"
@@ -43,8 +43,12 @@ function App() {
     });
   };
 
-  const subscribeToNewBook = (myContract) => {
-    myContract.events.NewBook({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
+  const subscribeToNewBook = async (myContract) => {
+    let latestBlock;
+    if(myContract) {
+      latestBlock = await window.web3.eth.getBlockNumber();
+    }
+    myContract.events.NewBook({}, {fromBlock: latestBlock, toBlock: 'latest'}, (error, result) => {
       if(!error) {
         setBookHash(result.returnValues[1]);
         setGameStatus(true);
@@ -77,6 +81,7 @@ function App() {
       const address = networkData.address;
       const myContract = new web3.eth.Contract(abi, address);
       setContract(myContract);
+      // checkIfAGameIsRunning(myContract);
       subscribeToNewGame(myContract);
       subscribeToNewBook(myContract);
       subscribeToGameOver(myContract);

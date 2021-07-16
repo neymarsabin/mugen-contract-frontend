@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { Button } from 'react-bootstrap';
 

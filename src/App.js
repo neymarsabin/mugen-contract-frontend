@@ -13,7 +13,6 @@ function App() {
 	const [account, setAccount] = useState("");
   const [contract, setContract] = useState(undefined);
   const [gameStatus, setGameStatus] = useState(false);
-  const [balance, setBalance] = useState(0);
   const [bookHash, setBookHash] = useState("");
   const [showCollectButton, setShowCollectButton] = useState(false);
   const [collectModal, setCollectModal] = useState(false);

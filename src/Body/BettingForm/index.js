@@ -61,7 +61,7 @@ function BettingForm({ contract, balance, bookHash, account }) {
       setBetTicket(response.events.NewBet.returnValues[0]);
       setOpenBetTicketModal(true);
     }).catch((error) => {
-      console.log("Error: ");
+      window.alert("Error: ", error);
     });
   };
 

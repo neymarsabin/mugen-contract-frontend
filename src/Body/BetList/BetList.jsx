@@ -23,7 +23,7 @@ const BetList = ({ contract, gameStatus }) => {
       if(!error) {
         getNewBetTickets(result.returnValues[2]);
       } else {
-        console.log("Cannot receive new bet event from blockchain:", error);
+        window.alert("Cannot receive new bet event from blockchain:", error);
       }
     });
   };

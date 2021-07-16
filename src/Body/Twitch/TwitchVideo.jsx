@@ -18,7 +18,7 @@ const TwitchVideo = ({
       if(!error) {
         setBalance(web3.utils.fromWei(result, 'ether'));
       } else {
-        console.log("Error: ", error);
+        window.alert("Error: ", error);
       }
     });
   };

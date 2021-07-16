@@ -61,7 +61,7 @@ function App() {
         setBookHash("");
         setShowCollectButton(true);
       } else {
-        console.log("Error cannot recieve game over event: ", error);
+        window.alert("Error cannot recieve game over event: ", error);
       }
     });
   };

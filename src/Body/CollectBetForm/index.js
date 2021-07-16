@@ -18,7 +18,7 @@ const CollectBetForm = ({
     }
     contract.methods.settleBet(parseInt(id)).call().then((result, error) => {
       if(!error) {
-        console.log("You have won the bet");
+        window.alert("You have won the bet");
       } else {
         setError(true);
       }

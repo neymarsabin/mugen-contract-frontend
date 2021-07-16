@@ -19,10 +19,16 @@ const BetList = ({ contract }) => {
   const subscribeToNewBet = () => {
     contract.events.NewBet({}, { fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
       if(!error) {
-        setNewBetTickets(result.returnValues[3]);
+        getNewBetTickets(result.returnValues[2]);
       } else {
         console.log("Cannot receive new bet event from blockchain:", error);
       }
+    });
+  };
+
+  const getNewBetTickets = (bookHash) => {
+    contract.methods.getBetTickets(bookHash).call().then((result, error) => {
+      setNewBetTickets(result);
     });
   };
 

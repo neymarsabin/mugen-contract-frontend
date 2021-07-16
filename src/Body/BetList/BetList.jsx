@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import "./styles.css";
 import { Row, Col } from "react-bootstrap";
+import web3 from 'web3';
+const { toWei, fromWei } = web3.utils;
 
 const BetListRow = ({ ticketId, address, option, amount }) => {
 	return (
 		<div style={{ display: "flex", justifyContent: option === "0" ? 'flex-start' : 'flex-end' }}>
 			<strong className={option === "0" ? 'bet-option-red' : 'bet-option-blue'}>
-				{ticketId}|{address.substring(1,8)}|{amount.substring(1,8)} {' '}ETH
+				{ticketId}|{address.substring(0,8)}|{fromWei(amount, 'Ether')} {' '}ETH
 			</strong>
 		</div>
 	);

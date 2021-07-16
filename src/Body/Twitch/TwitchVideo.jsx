@@ -1,6 +1,6 @@
+import { Spinner } from 'react-bootstrap';
 import BettingForm from '../../Body/BettingForm';
 import BetsOpenCloseNotification from '../../Body/BetsOpenCloseNotification';
-
 import "./styles.css";
 
 const TwitchVideo = ({
@@ -24,6 +24,15 @@ const TwitchVideo = ({
       <BetsOpenCloseNotification
         betStatus={gameStatus}
       />
+      { (!gameStatus && contract) &&
+        <div className="spinner-section">
+          <Spinner
+            animation="border"
+            variant="success"
+          />
+          <div> Preparing for New Game </div>
+        </div>
+      }
       {
         gameStatus &&
         <BettingForm

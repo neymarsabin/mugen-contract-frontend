@@ -3,6 +3,7 @@ import BettingAmountOptions from '../BettingAmountOptions';
 import "./styles.css";
 import BetTicketModal from './BetTicketModal';
 import web3 from 'web3';
+const { toWei, fromWei } = web3.utils;
 
 const BettingConfirmationDialog = ({
   handleConfirmClick,
@@ -37,25 +38,20 @@ function BettingForm({ contract, balance, bookHash, account }) {
   const [betTicket, setBetTicket] = useState("");
   const [error, setError] = useState("");
 
-  const handleOptionButtonClick = (option) => {
+  const handleOptionButtonClick = async (option) => {
     if(betAmount === "") {
       setError("Can't be blank");
       return;
     }
     setOption(option);
-    // Call GetOdds function
-    // bet odds for option 1
-    contract.methods.getOdds(bookHash, option, parseFloat(betAmount)).call().then((response) => {
-      setBetOddsFirst(response);
-      contract.methods.getOdds(bookHash, option, parseFloat(betAmount)).call().then((response2) => {
-        setBetOddsSecond(response2);
-        setConfirmDialog(true);
-      }).catch((errror) => {
-        console.log("Error getting odds");
-      });
-    }).catch((error) => {
-      console.log("error getting odds");
-    });
+    const betAmountWei = toWei(betAmount, 'Ether');
+    const firstOdds = await contract.methods.getOdds(bookHash, "0", betAmountWei).call();
+    const firstOddsRatio = fromWei(firstOdds, 'Ether')/fromWei(betAmountWei, 'Ether');
+    const secondOdds = await contract.methods.getOdds(bookHash, "1", betAmountWei).call();
+    const secondOddsRatio = fromWei(secondOdds, 'Ether')/fromWei(betAmountWei, 'Ether');
+    setBetOddsFirst(firstOddsRatio);
+    setBetOddsSecond(secondOddsRatio);
+    setConfirmDialog(true);
   };
 
   const handleConfirmButtonClick = () => {

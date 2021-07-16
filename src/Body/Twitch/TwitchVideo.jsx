@@ -25,7 +25,6 @@ const TwitchVideo = ({
 
   useEffect(() => {
     if(account && account !== "") {
-      debugger;
       getBalance(account);
     }
   }, [account]);

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { Button } from 'react-bootstrap';
 
@@ -15,12 +16,12 @@ const Header = ({
         <Nav className="mr-auto">
           {
             !account &&
-            <Button
-              variant="outline-success"
-              onClick={connectBlockChain}
-            >
-              Connect
-            </Button>
+              <Button
+                variant="outline-success"
+                onClick={connectBlockChain}
+              >
+                Connect
+              </Button>
           }
           <div className="header-gaps">
             {

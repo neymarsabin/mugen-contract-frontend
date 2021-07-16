@@ -8,13 +8,13 @@ const BetListRow = ({ ticketId, address, option, amount }) => {
 	return (
 		<div style={{ display: "flex", justifyContent: option === "0" ? 'flex-start' : 'flex-end' }}>
 			<strong className={option === "0" ? 'bet-option-red' : 'bet-option-blue'}>
-				{ticketId}|{address.substring(0,8)}|{fromWei(amount, 'Ether')} {' '}ETH
+				|{address.substring(0,8)}|{fromWei(amount, 'Ether')} {' '}ETH
 			</strong>
 		</div>
 	);
 };
 
-const BetList = ({ contract }) => {
+const BetList = ({ contract, gameStatus }) => {
   const [newBets, setNewBets] = useState({});
   const [newBetTickets, setNewBetTickets] = useState([]);
 
@@ -65,30 +65,34 @@ const BetList = ({ contract }) => {
 				</Col>
 			</Row>
       <Row>
-        <Col xs={12} sm={6} className="red-col">
-          {Object.keys(newBets).filter((betKey) => newBets[betKey].option === "0").map((betKey) => {
-				    return (
-					    <BetListRow
-                ticketId={betKey}
-						    address={newBets[betKey][0]}
-                option={newBets[betKey].option}
-                amount={newBets[betKey].payout}
-					    />
-				    );
-			    })}
-        </Col>
-        <Col xs={12} sm={6} className="blue-col">
-          {Object.keys(newBets).filter((betKey) => newBets[betKey].option === "1").map((betKey) => {
-				    return (
-					    <BetListRow
-                ticketId={betKey}
-						    address={newBets[betKey][0]}
-                option={newBets[betKey].option}
-                amount={newBets[betKey].payout}
-					    />
-				    );
-			    })}
-        </Col>
+        { gameStatus &&
+          <>
+            <Col xs={12} sm={6} className="red-col">
+              {Object.keys(newBets).filter((betKey) => newBets[betKey].option === "0").map((betKey) => {
+				        return (
+					        <BetListRow
+                    ticketId={betKey}
+						        address={newBets[betKey][0]}
+                    option={newBets[betKey].option}
+                    amount={newBets[betKey].payout}
+					        />
+				        );
+			        })}
+            </Col>
+            <Col xs={12} sm={6} className="blue-col">
+              {Object.keys(newBets).filter((betKey) => newBets[betKey].option === "1").map((betKey) => {
+				        return (
+					        <BetListRow
+                    ticketId={betKey}
+						        address={newBets[betKey][0]}
+                    option={newBets[betKey].option}
+                    amount={newBets[betKey].payout}
+					        />
+				        );
+			        })}
+            </Col>
+          </>
+        }
       </Row>
 		</>
 	);

@@ -39,7 +39,7 @@ function App() {
         setCollectModal(false);
         setShowCollectButton(false);
       } else {
-        console.log("Error: Something went wrong in the blockchain: ", error);
+        window.alert("Error: Something went wrong in the blockchain: ", error);
       }
     });
   };
@@ -47,26 +47,10 @@ function App() {
   const subscribeToNewBook = (myContract) => {
     myContract.events.NewBook({}, {fromBlock: 'latest', toBlock: 'latest'}, (error, result) => {
       if(!error) {
-        console.log("Returned book hash: ", result.returnValues[1]);
         setBookHash(result.returnValues[1]);
-        // myContract.methods.books(result.returnValues[1]).call().then((bookResult, bookError) => {
-        //   console.log("Error printing book result: ", bookResult);
-        //   console.log("Error printing book result: ", bookError);
-        // });
         setGameStatus(true);
       } else {
-        console.log("Error: Something went wrong in the blockchain: ", error);
-      }
-    });
-  };
-
-  const getBalance = (account) => {
-    const web3 = window.web3;
-    web3.eth.getBalance(account, (error, result) => {
-      if(!error) {
-        setBalance(web3.utils.fromWei(result, 'ether'));
-      } else {
-        console.log("Error: ", error);
+        window.alert("Error: Something went wrong in the blockchain: ", error);
       }
     });
   };
@@ -96,7 +80,6 @@ function App() {
       setContract(myContract);
       subscribeToNewGame(myContract);
       subscribeToNewBook(myContract);
-      getBalance(accounts[0]);
       subscribeToGameOver(myContract);
     } else {
       window.alert("Smart Contract not deployed to detected network");
@@ -124,6 +107,7 @@ function App() {
             { contract &&
 				      <BetList
                 contract={contract}
+                gameStatus={gameStatus}
               />
             }
           </Col>
@@ -131,7 +115,6 @@ function App() {
             <TwitchVideo
               contract={contract}
               gameStatus={gameStatus}
-              balance={balance}
               bookHash={bookHash}
               account={account}
             />

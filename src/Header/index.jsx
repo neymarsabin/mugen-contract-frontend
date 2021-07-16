@@ -28,8 +28,9 @@ const Header = ({
                 <Button
                   variant="outline-success"
                   onClick={handleCollectBetClick}
+                  title="You can still collect your bets even if your game has ended and new one is running."
                 >
-                  Collect Bets
+                  Collect Winning Bets
                 </Button>
             }
           </div>

@@ -36,7 +36,6 @@ function App() {
       if(!error) {
         setGameStatus(true);
         setCollectModal(false);
-        setShowCollectButton(false);
       } else {
         window.alert("Error: Something went wrong in the blockchain: ", error);
       }

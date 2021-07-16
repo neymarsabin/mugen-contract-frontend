@@ -28,10 +28,9 @@ const BetList = ({ contract }) => {
     });
   };
 
-  const getNewBetTickets = (bookHash) => {
-    contract.methods.getBetTickets(bookHash).call().then((result, error) => {
-      setNewBetTickets(result);
-    });
+  const getNewBetTickets = async (bookHash) => {
+    const response = await contract.methods.getBetTickets(bookHash).call();
+    setNewBetTickets(response);
   };
 
   useEffect(() => {

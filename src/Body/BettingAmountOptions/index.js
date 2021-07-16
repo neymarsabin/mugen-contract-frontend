@@ -47,7 +47,7 @@ const BettingAmountOptions = ({ setBetAmount, balance, contract }) => {
 
   const calculateAmount = (value) => {
     const amount = balance * value/100;
-    setBetAmount(amount.toFixed(0));
+    setBetAmount(amount.toFixed(2));
   };
 
   if(contract) {

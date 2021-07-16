@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import "./styles.css";
 import { Row, Col } from "react-bootstrap";
 import web3 from 'web3';
-const { toWei, fromWei } = web3.utils;
+const { fromWei } = web3.utils;
 
 const BetListRow = ({ ticketId, address, option, amount }) => {
 	return (

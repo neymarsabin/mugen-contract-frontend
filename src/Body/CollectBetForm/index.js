@@ -5,7 +5,8 @@ import './styles.css';
 const CollectBetForm = ({
   open,
   toggleCollectBetModal,
-  contract
+  contract,
+  account
 }) => {
 
   const [betTicketId, setBetTicketId] = useState(0);

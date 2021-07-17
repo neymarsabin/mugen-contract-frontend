@@ -59,6 +59,7 @@ const TwitchVideo = ({
           balance={balance}
           bookHash={bookHash}
           account={account}
+          setBalance={setBalance}
         />
       }
 		</div>

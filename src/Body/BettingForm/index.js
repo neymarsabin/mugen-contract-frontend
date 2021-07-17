@@ -28,7 +28,13 @@ const BettingConfirmationDialog = ({
   );
 };
 
-function BettingForm({ contract, balance, bookHash, account }) {
+function BettingForm({
+  contract,
+  balance,
+  bookHash,
+  account,
+  setBalance
+}) {
   const [betAmount, setBetAmount] = useState(0);
   const [betOddsFirst, setBetOddsFirst] = useState(0);
   const [betOddsSecond, setBetOddsSecond] = useState(0);
@@ -60,6 +66,7 @@ function BettingForm({ contract, balance, bookHash, account }) {
       setConfirmDialog(false);
       setBetTicket(response.events.NewBet.returnValues[0]);
       setOpenBetTicketModal(true);
+      setBalance(balance - betAmount);
     }).catch((error) => {
       window.alert("Error: ", error);
     });

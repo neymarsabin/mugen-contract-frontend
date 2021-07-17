@@ -96,6 +96,7 @@ function App() {
           open={collectModal}
           toggleCollectBetModal={() => setCollectModal(!collectModal)}
           contract={contract}
+          account={account}
         />
       }
 			<Header
